@@ -9,9 +9,9 @@
   --brand-accent-hover: #b08f5e;
   --dark-section: #2b1b1a;
   --card-dark: #3a2726;
-  --hero-bg: #2b1b1a;
-  --hero-heading: #f3ece2;
-  --hero-subtitle: rgba(243, 236, 226, 0.72);
+  --hero-bg: #f1ebe2;
+  --hero-heading: #2b1b1a;
+  --hero-subtitle: rgba(43, 27, 26, 0.72);
   --color-border: rgba(43, 27, 26, 0.16);
   --body-bg: #e9e3db;
   --body-text: #2b1b1a;
@@ -1240,17 +1240,17 @@ input {
 .hero-aurora-wrap { display: none; }
 
 .navbar {
-  background-color: rgba(43, 27, 26, 0.94);
+  background-color: rgba(241, 235, 226, 0.94);
   backdrop-filter: blur(10px);
-  border-bottom-color: rgba(243, 236, 226, 0.08);
+  border-bottom-color: rgba(43, 27, 26, 0.1);
 }
-.logo, .logo-text { color: #f3ece2; }
-.nav-link, .nav-cta { color: rgba(243, 236, 226, 0.72); letter-spacing: 0.14em; font-weight: 500; font-size: 0.75rem; }
-.nav-link:hover, .nav-cta:hover { color: #f3ece2; }
-.menu-toggle { color: #f3ece2; }
-.mobile-menu { background: rgba(43, 27, 26, 0.97); }
-.mobile-menu a { color: rgba(243, 236, 226, 0.85); }
-.mobile-menu a:hover { color: #c4a574; }
+.logo, .logo-text { color: #2b1b1a; }
+.nav-link, .nav-cta { color: rgba(43, 27, 26, 0.72); letter-spacing: 0.14em; font-weight: 500; font-size: 0.75rem; }
+.nav-link:hover, .nav-cta:hover { color: #2b1b1a; }
+.menu-toggle { color: #2b1b1a; }
+.mobile-menu { background: rgba(241, 235, 226, 0.97); }
+.mobile-menu a { color: rgba(43, 27, 26, 0.85); }
+.mobile-menu a:hover { color: #a8864f; }
 .mobile-menu .btn-mobile-cta { color: #2b1b1a; }
 
 .btn { border-radius: 0.25rem; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.75rem; font-weight: 600; }
@@ -1258,18 +1258,16 @@ input {
 .btn-primary:hover { background-color: var(--brand-accent-hover); }
 .btn-outline { border-color: rgba(43, 27, 26, 0.35); }
 .btn-outline:hover { border-color: #2b1b1a; background: rgba(43, 27, 26, 0.06); }
-.hero .btn-outline { color: #f3ece2; border-color: rgba(243, 236, 226, 0.4); }
-.hero .btn-outline:hover { border-color: #f3ece2; background: rgba(243, 236, 226, 0.08); }
 
 h1, h2, .hero-heading { text-transform: uppercase; font-weight: 500; letter-spacing: -0.01em; }
 .hero-heading { line-height: 1.04; }
 @media (min-width: 1024px) { .hero-heading { font-size: 3.75rem; } }
 .hero-heading .italic, h1 .italic, h2 .italic { font-family: var(--font-serif); font-style: italic; font-weight: 400; text-transform: none; }
-.hero-eyebrow { color: var(--brand-accent); letter-spacing: 0.22em; font-weight: 500; font-size: 0.75rem; }
+.hero-eyebrow { color: #a8864f; letter-spacing: 0.22em; font-weight: 500; font-size: 0.75rem; }
 
 .hero-image-inner {
   border-radius: 0.5rem;
   border: none;
-  background: linear-gradient(135deg, #cdc4ba, #d9cfc3);
-  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.45);
+  background: #cdc4ba;
+  box-shadow: 0 30px 60px -24px rgba(43, 27, 26, 0.35);
 }

@@ -42,3 +42,7 @@ While up the stack costs roughly US$0.20/hour (NAT gateway, 2 ALBs, 4 t3.micro, 
 ## CI/CD
 
 Every push to `main` runs tests, builds both images, pushes `:<sha>` and `:latest` to ECR, starts a rolling instance refresh of both Auto Scaling groups, waits for it to finish and smoke-tests the public endpoint. AWS access uses GitHub OIDC (role `axon-github-deploy`), so no AWS keys are stored in GitHub.
+
+## Credits
+
+Hero photo: [Unsplash](https://unsplash.com/photos/QckxruozjRg) (Unsplash License).
