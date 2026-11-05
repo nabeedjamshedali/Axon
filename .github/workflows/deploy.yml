@@ -1,0 +1,101 @@
+name: CI/CD - build, push to ECR, deploy to AWS
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  AWS_REGION: ap-south-1
+  ECR_REGISTRY: 526295688414.dkr.ecr.ap-south-1.amazonaws.com
+  # Role ARN is not a secret. Authentication uses GitHub OIDC (short-lived tokens): no AWS keys are stored in GitHub.
+  AWS_ROLE_ARN: ${{ vars.AWS_ROLE_ARN || 'arn:aws:iam::526295688414:role/axon-github-deploy' }}
+  WEB_ASG: axon-web-asg
+  APP_ASG: axon-app-asg
+  APP_URL: ${{ vars.APP_URL || 'http://axon-public-alb-631567707.ap-south-1.elb.amazonaws.com' }}
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            api/package-lock.json
+      - name: Site tests + build
+        run: |
+          npm ci
+          npm test
+          npm run build
+      - name: API tests
+        working-directory: api
+        run: |
+          npm ci
+          npm test
+
+  build-and-deploy:
+    name: Build, push, deploy
+    needs: test
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    concurrency: deploy-production # never run two deployments at once
+    permissions:
+      id-token: write # request the OIDC token
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push images
+        run: |
+          SHA="${GITHUB_SHA::7}"
+          docker build -f web/Dockerfile -t "$ECR_REGISTRY/axon-web:$SHA" -t "$ECR_REGISTRY/axon-web:latest" .
+          docker build --build-arg GIT_SHA="$SHA" -t "$ECR_REGISTRY/axon-api:$SHA" -t "$ECR_REGISTRY/axon-api:latest" api
+          for r in web api; do
+            docker push "$ECR_REGISTRY/axon-$r:$SHA"
+            docker push "$ECR_REGISTRY/axon-$r:latest"
+          done
+
+      - name: Roll out to Auto Scaling groups (rolling instance refresh)
+        run: |
+          for asg in "$APP_ASG" "$WEB_ASG"; do
+            aws autoscaling start-instance-refresh \
+              --auto-scaling-group-name "$asg" \
+              --preferences '{"MinHealthyPercentage":50,"InstanceWarmup":120}'
+          done
+
+      - name: Wait for rollout to finish
+        run: |
+          for asg in "$APP_ASG" "$WEB_ASG"; do
+            for i in $(seq 1 60); do
+              STATUS=$(aws autoscaling describe-instance-refreshes --auto-scaling-group-name "$asg" \
+                --query 'InstanceRefreshes[0].Status' --output text)
+              echo "$asg refresh: $STATUS"
+              case "$STATUS" in
+                Successful) break ;;
+                Failed|Cancelled|RollbackSuccessful|RollbackFailed) echo "::error::$asg refresh $STATUS"; exit 1 ;;
+              esac
+              sleep 30
+            done
+            [ "$STATUS" = "Successful" ] || { echo "::error::timed out waiting for $asg"; exit 1; }
+          done
+
+      - name: Smoke test the public endpoint
+        run: |
+          curl -fsS --retry 5 --retry-delay 10 "${APP_URL}/healthz"
+          curl -fsS --retry 5 --retry-delay 10 "${APP_URL}/api/health"
