@@ -157,7 +157,7 @@ data "aws_iam_policy_document" "github_deploy" {
   }
   statement {
     sid       = "ReadDeployState"
-    actions   = ["autoscaling:DescribeInstanceRefreshes", "autoscaling:DescribeAutoScalingGroups"]
+    actions   = ["autoscaling:DescribeInstanceRefreshes", "autoscaling:DescribeAutoScalingGroups", "elasticloadbalancing:DescribeLoadBalancers"]
     resources = ["*"]
   }
 }

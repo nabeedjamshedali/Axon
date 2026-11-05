@@ -1,5 +1,5 @@
 variable "region" {
-  description = "AWS region (Mumbai is the closest/cheapest option for Pakistan)."
+  description = "AWS region (Mumbai is the closest region to Pakistan: lowest latency; prices are slightly above us-east-1)."
   type        = string
   default     = "ap-south-1"
 }

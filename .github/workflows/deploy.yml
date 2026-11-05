@@ -14,7 +14,7 @@ env:
   AWS_ROLE_ARN: ${{ vars.AWS_ROLE_ARN || 'arn:aws:iam::526295688414:role/axon-github-deploy' }}
   WEB_ASG: axon-web-asg
   APP_ASG: axon-app-asg
-  APP_URL: ${{ vars.APP_URL || 'http://axon-public-alb-631567707.ap-south-1.elb.amazonaws.com' }}
+  PUBLIC_ALB: axon-public-alb # the ALB DNS name changes whenever the stack is recreated, so it is looked up at deploy time
 
 jobs:
   test:
@@ -97,5 +97,7 @@ jobs:
 
       - name: Smoke test the public endpoint
         run: |
+          APP_URL="http://$(aws elbv2 describe-load-balancers --names "$PUBLIC_ALB" --query 'LoadBalancers[0].DNSName' --output text)"
+          echo "Smoke testing $APP_URL"
           curl -fsS --retry 5 --retry-delay 10 "${APP_URL}/healthz"
           curl -fsS --retry 5 --retry-delay 10 "${APP_URL}/api/health"
