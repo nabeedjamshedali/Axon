@@ -121,7 +121,12 @@ data "aws_iam_policy_document" "github_assume" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${var.github_repo}:ref:refs/heads/main"] # only the main branch can deploy
+      # Only the main branch of this repository can deploy. GitHub now issues subjects containing the immutable
+      # owner/repo IDs ("repo:owner@id/name@id:..."), so both the legacy and the ID-pinned forms are accepted.
+      values = [
+        "repo:${var.github_repo}:ref:refs/heads/main",
+        "repo:${var.github_repo_oidc_id}:ref:refs/heads/main",
+      ]
     }
   }
 }

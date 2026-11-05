@@ -52,6 +52,12 @@ variable "github_repo" {
   default     = "nabeedjamshedali/Axon"
 }
 
+variable "github_repo_oidc_id" {
+  description = "Immutable-ID form of the repository as it appears in GitHub OIDC subjects (owner@id/name@id)."
+  type        = string
+  default     = "nabeedjamshedali@211976180/Axon@1447093003"
+}
+
 variable "alert_email" {
   description = "Email for CloudWatch alarms and budget alerts. Leave empty to skip the subscriptions."
   type        = string
