@@ -5,20 +5,20 @@
 
 /* ── CSS Custom Properties ── */
 :root {
-  --brand-accent: #6a6cef;
-  --brand-accent-hover: #5254d8;
-  --dark-section: #0b0b0b;
-  --card-dark: #1a1a1a;
-  --hero-bg: #ffffff;
-  --hero-heading: #0b0b0b;
-  --hero-subtitle: rgba(11, 11, 11, 0.62);
-  --color-border: #e6e6e6;
-  --body-bg: #fafafa;
-  --body-text: #0b0b0b;
+  --brand-accent: #c4a574;
+  --brand-accent-hover: #b08f5e;
+  --dark-section: #2b1b1a;
+  --card-dark: #3a2726;
+  --hero-bg: #2b1b1a;
+  --hero-heading: #f3ece2;
+  --hero-subtitle: rgba(243, 236, 226, 0.72);
+  --color-border: rgba(43, 27, 26, 0.16);
+  --body-bg: #e9e3db;
+  --body-text: #2b1b1a;
   --font-sans: 'Manrope', system-ui, sans-serif;
   --font-serif: 'Playfair Display', Georgia, serif;
   --max-w-site: 1280px;
-  --shadow-card-hover: 0 8px 30px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 8px 30px rgba(43, 27, 26, 0.12);
 }
 
 /* ── Reset & Base ── */
@@ -48,8 +48,8 @@ body {
 }
 
 ::selection {
-  color: #fff;
-  background-color: #1e4bff;
+  color: #2b1b1a;
+  background-color: #c4a574;
 }
 
 img {
@@ -96,7 +96,7 @@ input {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #6a6cef, #818cf8, #a78bfa);
+  background: linear-gradient(135deg, #c4a574, #d4b98a, #b08f5e);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -369,7 +369,7 @@ input {
   left: -8rem;
   width: 500px;
   height: 500px;
-  background: rgba(106, 108, 239, 0.1);
+  background: rgba(196, 165, 116, 0.14);
   filter: blur(100px);
 }
 
@@ -483,7 +483,7 @@ input {
   aspect-ratio: 4 / 3;
   background: linear-gradient(
     to bottom right,
-    rgba(106, 108, 239, 0.1),
+    rgba(196, 165, 116, 0.14),
     rgba(216, 180, 254, 0.3)
   );
   border: 1px solid var(--color-border);
@@ -698,7 +698,7 @@ input {
 .project-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(106, 108, 239, 0.1);
+  background: rgba(196, 165, 116, 0.14);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -811,7 +811,7 @@ input {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  background: rgba(106, 108, 239, 0.2);
+  background: rgba(196, 165, 116, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1233,4 +1233,43 @@ input {
   font-size: 0.75rem;
   opacity: 0.6;
   margin-top: 0.25rem;
+}
+
+
+/* ── Theme: warm architectural (espresso, taupe, cream, muted gold) ── */
+.hero-aurora-wrap { display: none; }
+
+.navbar {
+  background-color: rgba(43, 27, 26, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom-color: rgba(243, 236, 226, 0.08);
+}
+.logo, .logo-text { color: #f3ece2; }
+.nav-link, .nav-cta { color: rgba(243, 236, 226, 0.72); letter-spacing: 0.14em; font-weight: 500; font-size: 0.75rem; }
+.nav-link:hover, .nav-cta:hover { color: #f3ece2; }
+.menu-toggle { color: #f3ece2; }
+.mobile-menu { background: rgba(43, 27, 26, 0.97); }
+.mobile-menu a { color: rgba(243, 236, 226, 0.85); }
+.mobile-menu a:hover { color: #c4a574; }
+.mobile-menu .btn-mobile-cta { color: #2b1b1a; }
+
+.btn { border-radius: 0.25rem; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.75rem; font-weight: 600; }
+.btn-primary { background-color: var(--brand-accent); color: #2b1b1a; }
+.btn-primary:hover { background-color: var(--brand-accent-hover); }
+.btn-outline { border-color: rgba(43, 27, 26, 0.35); }
+.btn-outline:hover { border-color: #2b1b1a; background: rgba(43, 27, 26, 0.06); }
+.hero .btn-outline { color: #f3ece2; border-color: rgba(243, 236, 226, 0.4); }
+.hero .btn-outline:hover { border-color: #f3ece2; background: rgba(243, 236, 226, 0.08); }
+
+h1, h2, .hero-heading { text-transform: uppercase; font-weight: 500; letter-spacing: -0.01em; }
+.hero-heading { line-height: 1.04; }
+@media (min-width: 1024px) { .hero-heading { font-size: 3.75rem; } }
+.hero-heading .italic, h1 .italic, h2 .italic { font-family: var(--font-serif); font-style: italic; font-weight: 400; text-transform: none; }
+.hero-eyebrow { color: var(--brand-accent); letter-spacing: 0.22em; font-weight: 500; font-size: 0.75rem; }
+
+.hero-image-inner {
+  border-radius: 0.5rem;
+  border: none;
+  background: linear-gradient(135deg, #cdc4ba, #d9cfc3);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.45);
 }
