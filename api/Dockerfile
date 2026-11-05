@@ -6,7 +6,8 @@ COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
 
 FROM node:20-alpine
-ENV NODE_ENV=production PORT=3000
+ARG GIT_SHA=dev
+ENV NODE_ENV=production PORT=3000 APP_VERSION=$GIT_SHA
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY package.json ./

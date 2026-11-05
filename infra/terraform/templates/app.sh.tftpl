@@ -1,0 +1,48 @@
+#!/bin/bash
+# App tier bootstrap: fetch DB credentials from Secrets Manager at boot (never baked into the image or user-data),
+# then run the API container.
+set -uxo pipefail
+exec > >(tee /var/log/axon-bootstrap.log) 2>&1
+
+dnf install -y docker jq
+systemctl enable --now docker
+
+REGION="${region}"
+IMAGE="${image}"
+REGISTRY="$(echo "$IMAGE" | cut -d/ -f1)"
+
+TOKEN="$(curl -sX PUT http://169.254.169.254/latest/api/token -H 'X-aws-ec2-metadata-token-ttl-seconds: 300')"
+AZ="$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/placement/availability-zone)"
+IID="$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/instance-id)"
+
+# Credentials -> root-only env file (0600), outside the image
+install -d -m 700 /etc/axon
+SECRET="$(aws secretsmanager get-secret-value --region "$REGION" --secret-id "${secret_arn}" --query SecretString --output text)"
+umask 077
+cat > /etc/axon/api.env <<ENVEOF
+DB_HOST=${db_host}
+DB_PORT=5432
+DB_NAME=${db_name}
+DB_USER=$(echo "$SECRET" | jq -r .username)
+DB_PASSWORD=$(echo "$SECRET" | jq -r .password)
+DB_SSL=true
+S3_BUCKET=${s3_bucket}
+AWS_REGION=$REGION
+INSTANCE_AZ=$AZ
+INSTANCE_ID=$IID
+ENVEOF
+unset SECRET
+
+for i in $(seq 1 120); do
+  aws ecr get-login-password --region "$REGION" | docker login --username AWS --password-stdin "$REGISTRY" && docker pull "$IMAGE" && break
+  echo "image not available yet (attempt $i), retrying in 15s"
+  sleep 15
+done
+
+docker rm -f api 2>/dev/null || true
+docker run -d --name api --restart unless-stopped -p 3000:3000 \
+  --env-file /etc/axon/api.env \
+  --log-driver awslogs \
+  --log-opt awslogs-region="$REGION" \
+  --log-opt awslogs-group="${log_group}" \
+  "$IMAGE"
