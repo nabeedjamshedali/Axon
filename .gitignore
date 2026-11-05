@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+*.tfstate
+*.tfstate.*
+.terraform/
+*.tfvars
+!example.tfvars
+*.pem
+report/*.aux
+report/*.log
+CEA - Problem Statement.pdf

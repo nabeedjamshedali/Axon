@@ -1,0 +1,8 @@
+node_modules
+dist
+infra
+docs
+report
+screenshots
+.git
+api/node_modules

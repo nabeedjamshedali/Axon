@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Axon | AI Agents, Web & Mobile Apps, SaaS Development</title>
+  <meta name="description" content="Axon is a digital product studio crafting Mobile Apps, SaaS Platforms, Web Apps, AI Agents, UI/UX Design, and Product Strategy — shipped fast, built to scale." />
+  <meta name="author" content="Axon" />
+  <link rel="icon" type="image/svg+xml" href="/src/assets/favicon.svg" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header id="navbar" class="navbar">
+    <div class="navbar-inner">
+      <!-- Logo -->
+      <a href="#" class="logo">
+        <svg class="logo-icon" width="32" height="32" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="8" fill="#6a6cef"/>
+          <path d="M20 8L32 32H8L20 8Z" fill="white" stroke="white" stroke-width="1" stroke-linejoin="round"/>
+          <circle cx="20" cy="24" r="3" fill="#6a6cef"/>
+        </svg>
+        <span class="logo-text">Axon</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="nav-desktop">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#work" class="nav-link">Work</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <!-- CTA + Mobile Toggle -->
+      <div class="nav-cta-wrap">
+        <a href="#contact" class="nav-cta">
+          Schedule a Call
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7"/><path d="M7 7h10v10"/>
+          </svg>
+        </a>
+        <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu">
+      <a href="#about" onclick="closeMobileMenu()">About</a>
+      <a href="#work" onclick="closeMobileMenu()">Work</a>
+      <a href="#services" onclick="closeMobileMenu()">Services</a>
+      <a href="#pricing" onclick="closeMobileMenu()">Pricing</a>
+      <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+      <a href="#contact" class="btn-mobile-cta" onclick="closeMobileMenu()">Schedule a Call</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="about" class="hero">
+    <!-- Aurora blobs -->
+    <div class="hero-aurora-wrap">
+      <div class="hero-aurora hero-blob hero-blob-1"></div>
+      <div class="hero-aurora hero-blob hero-blob-2" style="animation-delay: -8s;"></div>
+      <div class="hero-aurora hero-blob hero-blob-3" style="animation-delay: -15s;"></div>
+    </div>
+
+    <div class="container hero-grid">
+      <div class="fade-in">
+        <p class="hero-eyebrow">We turn your ideas into shipped products.</p>
+        <h1 class="hero-heading">
+          We design, build,<br/>
+          <span class="italic">and ship</span> digital<br/>
+          products.
+        </h1>
+        <p class="hero-body">
+          Our engineers and designers make complex applications simple for users. We're a full-service product studio, with a team of specialists ready to help you build your product.
+        </p>
+        <div class="hero-actions">
+          <a href="#work" class="btn btn-primary">
+            View our work
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a href="#contact" class="btn btn-outline">
+            Get Started
+          </a>
+        </div>
+      </div>
+      <div class="fade-in hero-image">
+        <div class="hero-image-inner">
+          <div class="hero-image-placeholder">
+            <svg width="96" height="96" viewBox="0 0 80 80" fill="none" style="color: rgba(106,108,239,0.3);">
+              <rect width="80" height="80" rx="16" fill="currentColor" opacity="0.2"/>
+              <path d="M40 18L62 62H18L40 18Z" fill="currentColor"/>
+              <circle cx="40" cy="48" r="6" fill="#fff"/>
+            </svg>
+            <p>Software Team at Work</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="trust-bar">
+    <div class="container">
+      <p class="trust-bar-label">Trusted by</p>
+      <div class="trust-grid">
+        <div class="fade-in">
+          <p class="trust-stat-value">Startups</p>
+          <p class="trust-stat-label">Idea to market, fast</p>
+        </div>
+        <div class="fade-in">
+          <p class="trust-stat-value">SaaS Teams</p>
+          <p class="trust-stat-label">Built to scale</p>
+        </div>
+        <div class="fade-in">
+          <p class="trust-stat-value">6+ Countries</p>
+          <p class="trust-stat-label">Remote-first</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="section">
+    <div class="container">
+      <div class="fade-in section-header">
+        <h2 class="section-title">
+          What<br/><span class="italic">we</span><br/>do.
+        </h2>
+        <p class="section-subtitle">
+          Six core services from AI, web, and mobile to design and product strategy — each one taken end to end, from first idea to production.
+        </p>
+      </div>
+      <div class="services-grid fade-in-stagger">
+        <div class="service-card fade-in">
+          <span class="service-card-number">01</span>
+          <h3>AI Agents</h3>
+          <p>Intelligent AI agents that automate workflows, enhance decision-making, and integrate seamlessly into your operations.</p>
+        </div>
+        <div class="service-card fade-in">
+          <span class="service-card-number">02</span>
+          <h3>SaaS Platforms</h3>
+          <p>Scalable multi-tenant platforms designed to grow with your user base from day one.</p>
+        </div>
+        <div class="service-card fade-in">
+          <span class="service-card-number">03</span>
+          <h3>Web Apps</h3>
+          <p>Responsive, performant web applications built with modern frameworks and best practices.</p>
+        </div>
+        <div class="service-card fade-in">
+          <span class="service-card-number">04</span>
+          <h3>Mobile Apps</h3>
+          <p>Native and cross-platform mobile apps that deliver exceptional user experiences on every device.</p>
+        </div>
+        <div class="service-card fade-in">
+          <span class="service-card-number">05</span>
+          <h3>UI/UX Design</h3>
+          <p>User-centered design that balances aesthetics with usability, from wireframes to pixel-perfect interfaces.</p>
+        </div>
+        <div class="service-card fade-in">
+          <span class="service-card-number">06</span>
+          <h3>Product Strategy</h3>
+          <p>Strategic guidance from concept to launch — market research, roadmaps, and go-to-market planning.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Industries / Portfolio Section (Dark Section) -->
+  <section id="work" class="dark-section section">
+    <div class="container">
+      <div class="fade-in section-header">
+        <h2 class="section-title" style="color: #fff;">
+          Industries<br/><span class="italic">we</span><br/>build for.
+        </h2>
+        <p class="section-subtitle">
+          The same team and standard across every sector we build in.
+        </p>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-overlay"></div>
+          <h3>G-Facility</h3>
+          <p>AI-driven ITSM for modern IT teams.</p>
+        </div>
+        <div class="project-card">
+          <div class="project-overlay"></div>
+          <h3>Eleken</h3>
+          <p>SaaS design agency site with case studies.</p>
+        </div>
+        <div class="project-card">
+          <div class="project-overlay"></div>
+          <h3>TripKarao</h3>
+          <p>Premium travel and tour booking marketplace.</p>
+        </div>
+        <div class="project-card">
+          <div class="project-overlay"></div>
+          <h3>StrideIQ</h3>
+          <p>AI fitness coaching synced to wearables.</p>
+        </div>
+        <div class="project-card">
+          <div class="project-overlay"></div>
+          <h3>Perill Group</h3>
+          <p>Insurance risk and claims management platform.</p>
+        </div>
+        <div class="project-card">
+          <div class="project-overlay"></div>
+          <h3>OHE Roofing</h3>
+          <p>Professional roofing services with online scheduling.</p>
+        </div>
+        <div class="project-card">
+          <div class="project-overlay"></div>
+          <h3>Sokrateque</h3>
+          <p>AI research with cited, verifiable sources.</p>
+        </div>
+        <div class="project-card">
+          <div class="project-overlay"></div>
+          <h3>Harbinger AI</h3>
+          <p>Conversational AI for competitor and market intelligence.</p>
+        </div>
+        <div class="project-card">
+          <div class="project-overlay"></div>
+          <h3>EazyConnections</h3>
+          <p>AI prospect intelligence with 200M+ contacts.</p>
+        </div>
+        <div class="project-card">
+          <div class="project-overlay"></div>
+          <h3>MediaNet</h3>
+          <p>Real-time analytics for field operations teams.</p>
+        </div>
+        <div class="project-card">
+          <div class="project-overlay"></div>
+          <h3>AI Travel Platform</h3>
+          <p>AI travel planning with smart itineraries.</p>
+        </div>
+        <div class="project-card">
+          <div class="project-overlay"></div>
+          <h3>Agent22</h3>
+          <p>Train specialized personal AI agents anywhere.</p>
+        </div>
+        <div class="project-card">
+          <div class="project-overlay"></div>
+          <h3>Passes</h3>
+          <p>Creator commerce and audience monetization platform.</p>
+        </div>
+        <div class="project-card">
+          <div class="project-overlay"></div>
+          <h3>HalalCS</h3>
+          <p>Global halal certification services and training.</p>
+        </div>
+        <div class="project-card">
+          <div class="project-overlay"></div>
+          <h3>Lead Aware</h3>
+          <p>Leadership coaching and professional development platform.</p>
+        </div>
+        <div class="project-card">
+          <div class="project-overlay"></div>
+          <h3>Surgi Makers</h3>
+          <p>Surgical instrument manufacturing and global export.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section id="process" class="section">
+    <div class="container">
+      <div class="fade-in section-header">
+        <h2 class="section-title">
+          How<br/><span class="italic">we</span><br/>work.
+        </h2>
+        <p class="section-subtitle">
+          A clear, four-stage path that takes you from first conversation to a shipped product — with weekly demos and no surprises.
+        </p>
+      </div>
+      <div class="process-grid fade-in-stagger">
+        <div class="fade-in step-connector">
+          <div class="step-number">01</div>
+          <h3 class="step-title">Discovery</h3>
+          <p class="step-label">Research & Strategy</p>
+          <p class="step-desc">We deep-dive into your business goals, target audience, and technical requirements to craft a tailored strategy.</p>
+        </div>
+        <div class="fade-in step-connector">
+          <div class="step-number">02</div>
+          <h3 class="step-title">Design</h3>
+          <p class="step-label">Wireframes & Prototypes</p>
+          <p class="step-desc">Wireframes, prototypes, and high-fidelity designs reviewed with you at every stage. No surprises.</p>
+        </div>
+        <div class="fade-in step-connector">
+          <div class="step-number">03</div>
+          <h3 class="step-title">Build</h3>
+          <p class="step-label">Build & Iterate</p>
+          <p class="step-desc">Clean, scalable code with weekly demos. We build in sprints so you see progress continuously.</p>
+        </div>
+        <div class="fade-in step-connector">
+          <div class="step-number">04</div>
+          <h3 class="step-title">Launch</h3>
+          <p class="step-label">Deploy & Support</p>
+          <p class="step-desc">Deployment, monitoring, and post-launch support. We stay with you to ensure a smooth rollout.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section (Dark Section) -->
+  <section id="testimonials" class="dark-section section">
+    <div class="container">
+      <div class="fade-in section-header">
+        <h2 class="section-title" style="color: #fff;">
+          What<br/><span class="italic">clients</span><br/>say.
+        </h2>
+        <p class="section-subtitle">From founders and product leaders we've partnered with across 6+ countries.</p>
+      </div>
+      <div class="testimonial-container" id="testimonial-container">
+        <div class="testimonial-track" id="testimonial-track">
+          <!-- Testimonial 1 -->
+          <div class="testimonial-slide">
+            <div class="testimonial-content">
+              <div class="testimonial-header">
+                <div class="testimonial-avatar">TW</div>
+                <div>
+                  <p class="testimonial-name">Tjaco Walvis</p>
+                  <p class="testimonial-role">Founder & CEO, Sokrateque.ai</p>
+                </div>
+              </div>
+              <blockquote class="testimonial-quote">
+                "Axon has been instrumental in bringing Sokrateque.ai to life. Their team built advanced multi-agent systems, integrated Power BI with LLMs, and delivered a seamless data exploration pipeline that exceeded our expectations. Their deep understanding of AI, automation, and scalable architectures helped us unlock real value from our product."
+              </blockquote>
+            </div>
+          </div>
+          <!-- Testimonial 2 -->
+          <div class="testimonial-slide">
+            <div class="testimonial-content">
+              <div class="testimonial-header">
+                <div class="testimonial-avatar">AR</div>
+                <div>
+                  <p class="testimonial-name">Alex R.</p>
+                  <p class="testimonial-role">CTO, G-Facility</p>
+                </div>
+              </div>
+              <blockquote class="testimonial-quote">
+                "Working with Axon felt like having an extension of our own team. They understood our complex ITSM requirements from day one and delivered a product that our enterprise clients love. Highly recommended for any SaaS project."
+              </blockquote>
+            </div>
+          </div>
+          <!-- Testimonial 3 -->
+          <div class="testimonial-slide">
+            <div class="testimonial-content">
+              <div class="testimonial-header">
+                <div class="testimonial-avatar">DP</div>
+                <div>
+                  <p class="testimonial-name">Daniel P.</p>
+                  <p class="testimonial-role">Founder, StrideIQ</p>
+                </div>
+              </div>
+              <blockquote class="testimonial-quote">
+                "Axon took our fitness coaching concept and turned it into a polished mobile app with real-time wearable integration. Their attention to UX detail and engineering quality made all the difference."
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Testimonial Navigation -->
+      <div class="testimonial-nav">
+        <button id="prev-testimonial" class="testimonial-btn" aria-label="Previous testimonial">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <span class="testimonial-counter"><span id="current-slide">01</span> / <span id="total-slides">03</span></span>
+        <button id="next-testimonial" class="testimonial-btn" aria-label="Next testimonial">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Promises Section -->
+  <section class="section">
+    <div class="container">
+      <div class="fade-in section-header">
+        <h2 class="section-title">
+          Two <span class="italic">things</span><br/>we always<br/>promise.
+        </h2>
+      </div>
+      <div class="promises-grid">
+        <div class="fade-in promise-card">
+          <span class="number">01</span>
+          <h3>Friendly Relationship</h3>
+          <p>We work as an extension of your team — clear communication, honest timelines, and no surprises from kickoff to launch.</p>
+        </div>
+        <div class="fade-in promise-card">
+          <span class="number">02</span>
+          <h3>Design you will love</h3>
+          <p>Through design and engineering craft, we ship competitive products that look great and meet your commercial goals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="section pricing-section">
+    <div class="container">
+      <div class="fade-in pricing-header">
+        <h2 class="section-title">
+          Simple <span class="italic">pricing.</span>
+        </h2>
+        <p class="section-subtitle">
+          Transparent pricing that scales with your needs. No hidden fees, no surprises.
+        </p>
+      </div>
+      <div class="pricing-grid">
+        <div class="fade-in pricing-card">
+          <h3>Starter</h3>
+          <p class="pricing-desc">Perfect for MVPs and early-stage products</p>
+          <p class="pricing-amount">$5K<span>/mo</span></p>
+          <div class="pricing-features">
+            <div class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+              Dedicated dev team
+            </div>
+            <div class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+              Weekly demos
+            </div>
+            <div class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+              UI/UX design included
+            </div>
+          </div>
+          <a href="#contact" class="btn btn-outline btn-sm" style="justify-content: center;">Get Started</a>
+        </div>
+        <div class="fade-in pricing-card featured">
+          <span class="pricing-badge">Popular</span>
+          <h3>Growth</h3>
+          <p class="pricing-desc">For scaling products and growing teams</p>
+          <p class="pricing-amount">$12K<span>/mo</span></p>
+          <div class="pricing-features">
+            <div class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+              Everything in Starter
+            </div>
+            <div class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+              Full-stack team
+            </div>
+            <div class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+              AI/ML integration
+            </div>
+            <div class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+              Priority support
+            </div>
+          </div>
+          <a href="#contact" class="btn btn-primary btn-sm" style="justify-content: center;">Get Started</a>
+        </div>
+        <div class="fade-in pricing-card">
+          <h3>Enterprise</h3>
+          <p class="pricing-desc">Custom solutions for large-scale projects</p>
+          <p class="pricing-amount">Custom</p>
+          <div class="pricing-features">
+            <div class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+              Everything in Growth
+            </div>
+            <div class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+              Dedicated PM
+            </div>
+            <div class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+              SLA guarantees
+            </div>
+            <div class="pricing-feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+              24/7 support
+            </div>
+          </div>
+          <a href="#contact" class="btn btn-outline btn-sm" style="justify-content: center;">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="section newsletter-section">
+    <div class="container">
+      <div class="fade-in newsletter-content">
+        <h2 class="newsletter-title">Axon</h2>
+        <p class="newsletter-tagline">Notes on what we build.</p>
+        <p class="newsletter-desc">Occasional thoughts on design, engineering, and shipping products that last — straight to your inbox. No spam, unsubscribe anytime.</p>
+        <form class="newsletter-form" id="newsletter-form">
+          <input type="email" name="email" placeholder="you@company.com" class="newsletter-input" required />
+          <button type="submit" class="btn btn-primary btn-sm">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="dark-section section">
+    <div class="container">
+      <div class="fade-in contact-inner">
+        <h2 class="contact-title">Let's build something great.</h2>
+        <p class="contact-body">Ready to start your project? Get in touch and let's discuss how we can help.</p>
+        <a href="mailto:hello@axon.dev" class="contact-email">
+          hello@axon.dev
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+        <div class="contact-cta">
+          <a href="#contact" class="btn btn-primary">
+            Contact us
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand -->
+        <div class="footer-brand">
+          <div class="logo" style="margin-bottom: 1rem;">
+            <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="8" fill="#6a6cef"/>
+              <path d="M20 8L32 32H8L20 8Z" fill="white" stroke="white" stroke-width="1" stroke-linejoin="round"/>
+              <circle cx="20" cy="24" r="3" fill="#6a6cef"/>
+            </svg>
+            <span class="logo-text" style="font-size: 1.125rem;">Axon</span>
+          </div>
+          <p>We design, build, and ship digital products that make a difference.</p>
+        </div>
+
+        <!-- Services -->
+        <div>
+          <h4 class="footer-heading">Services</h4>
+          <div class="footer-links">
+            <a href="#services">Mobile Apps</a>
+            <a href="#services">SaaS Platforms</a>
+            <a href="#services">Web Apps</a>
+            <a href="#services">AI Agents</a>
+            <a href="#services">UI/UX Design</a>
+            <a href="#services">Product Strategy</a>
+          </div>
+        </div>
+
+        <!-- Company -->
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <div class="footer-links">
+            <a href="#about">About</a>
+            <a href="#work">Work</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+
+        <!-- Get in Touch -->
+        <div>
+          <h4 class="footer-heading">Get in touch</h4>
+          <div class="footer-links">
+            <a href="mailto:hello@axon.dev">hello@axon.dev</a>
+            <a href="#contact">Contact us</a>
+          </div>
+          <h4 class="footer-heading" style="margin-top: 2rem;">Legal</h4>
+          <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Axon. All rights reserved.</p>
+        <p id="system-status" class="system-status" aria-live="polite">Checking system status…</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

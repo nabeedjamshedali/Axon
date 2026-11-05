@@ -1,0 +1,51 @@
+# Local multi-service orchestration: web (nginx) -> api (node) -> db (postgres)
+# Usage: docker compose up --build   then open http://localhost:8080
+services:
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      API_UPSTREAM: api:3000
+      DNS_RESOLVER: 127.0.0.11
+    depends_on:
+      api:
+        condition: service_healthy
+    networks: [frontend]
+
+  api:
+    build: ./api
+    environment:
+      DB_HOST: db
+      DB_USER: axon
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-axon_local_dev}
+      DB_NAME: axon
+      APP_VERSION: local-compose
+    depends_on:
+      db:
+        condition: service_healthy
+    networks: [frontend, backend]
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: axon
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-axon_local_dev}
+      POSTGRES_DB: axon
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U axon -d axon"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks: [backend]   # not reachable from the web container
+
+volumes:
+  dbdata:
+
+networks:
+  frontend:
+  backend:

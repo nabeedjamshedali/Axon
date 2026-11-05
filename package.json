@@ -1,0 +1,18 @@
+{
+  "name": "axon-website",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Axon - Full-service product studio website",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node tests/test.cjs"
+  },
+  "devDependencies": {
+    "vite": "^6.3.5"
+  },
+  "author": "Axon",
+  "license": "MIT"
+}
