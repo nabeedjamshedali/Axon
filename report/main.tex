@@ -8,6 +8,7 @@
 \usepackage{graphicx,float,booktabs,tabularx,array,colortbl,enumitem,lastpage}
 \usepackage[font=small]{caption}
 \usepackage{fancyhdr,titlesec,tocloft}
+\usepackage{needspace}
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta,calc}
 
@@ -154,7 +155,9 @@ us build a pipeline that stores no long-lived access keys.
 
 \section{System Architecture}
 \subsection{Overview}
-Figure~\ref{fig:arch} shows the complete deployment. A request enters through the Internet Gateway and reaches the public Application
+Figure~\ref{fig:arch} shows the complete deployment, separated into a public layer and three tiers (web, application and data). Each tier
+has its own subnets in both Availability Zones, its own security group and, for the two compute tiers, an Auto Scaling group with one
+instance per zone. A request enters through the Internet Gateway and reaches the public Application
 Load Balancer (ALB). The ALB forwards it to an Nginx container in the web tier, which serves the static site and reverse-proxies
 \texttt{/api/} calls to an \emph{internal} ALB in front of the application tier. The Node.js API reads and writes data in RDS
 PostgreSQL. Because each hop only accepts traffic from the hop before it, the application tier is reachable solely from the web tier,
@@ -163,8 +166,8 @@ and the database solely from the application tier.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\textwidth]{images/architecture.png}
-\caption{Axon deployment architecture on AWS: VPC across two Availability Zones, public and internal load balancers, web and
-application Auto Scaling groups, private database, managed services and the GitHub Actions deployment path.}\label{fig:arch}
+\caption{Axon three-tier architecture on AWS: a public layer (ALB, NAT), and web, application and data tiers, each with a subnet and
+instance per Availability Zone behind its own security group; managed services and the GitHub Actions path sit outside the VPC.}\label{fig:arch}
 \end{figure}
 
 \subsection{Network Design}
@@ -209,6 +212,7 @@ and answers the load balancer's \texttt{/healthz} check. The API image is also m
 runs as the unprivileged \texttt{node} user and declares a \texttt{HEALTHCHECK}. A \texttt{docker-compose.yml} starts web, API and PostgreSQL
 locally on two separate networks, so the web container cannot reach the database, with a single command.
 
+\Needspace{8\baselineskip}
 \section{CI/CD Pipeline}
 The workflow \texttt{.github/workflows/deploy.yml} runs on every push to \texttt{main} (Figure~\ref{fig:pipeline}). The \emph{test} job runs
 the 90 site tests, the production build and the 10 API tests. The \emph{deploy} job then assumes an AWS role through OIDC, logs in to ECR,
