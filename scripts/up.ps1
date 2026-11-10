@@ -6,6 +6,10 @@ $env:AWS_PROFILE = $Profile
 $env:AWS_REGION = "ap-south-1"
 $root = Split-Path $PSScriptRoot -Parent
 
+# Fail before creating anything billable if Docker is not running (otherwise the stack comes up with empty ECR repos).
+docker info *> $null
+if ($LASTEXITCODE -ne 0) { throw "Docker Desktop is not running. Start it, wait until it is ready, then run this script again." }
+
 Write-Host "==> 1/3 Terraform: creating VPC, ALBs, ASGs, RDS, ECR, S3, IAM, CloudWatch ..."
 Push-Location "$root\infra\terraform"
 terraform init -input=false
@@ -18,10 +22,21 @@ Pop-Location
 Write-Host "==> 2/3 Building and pushing the container images to ECR (instances are already waiting for them) ..."
 $sha = (git -C $root rev-parse --short=7 HEAD).Trim()
 $registry = $web.Split("/")[0]
-aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $registry
-docker build -f "$root\web\Dockerfile" -t "${web}:$sha" -t "${web}:latest" $root
-docker build --build-arg GIT_SHA=$sha -t "${api}:$sha" -t "${api}:latest" "$root\api"
-foreach ($img in @($web, $api)) { docker push "${img}:$sha"; docker push "${img}:latest" }
+# Docker writes normal progress to stderr, which Windows PowerShell treats as an error under "Stop",
+# so relax it here and check each command's exit code instead.
+$ErrorActionPreference = "Continue"
+function Invoke-Checked([scriptblock]$cmd, [string]$what) {
+    & $cmd
+    if ($LASTEXITCODE -ne 0) { throw "$what failed (exit code $LASTEXITCODE)" }
+}
+Invoke-Checked { aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $registry } "ECR login"
+Invoke-Checked { docker build -f "$root\web\Dockerfile" -t "${web}:$sha" -t "${web}:latest" $root } "web image build"
+Invoke-Checked { docker build --build-arg GIT_SHA=$sha -t "${api}:$sha" -t "${api}:latest" "$root\api" } "api image build"
+foreach ($img in @($web, $api)) {
+    Invoke-Checked { docker push "${img}:$sha" } "push ${img}:$sha"
+    Invoke-Checked { docker push "${img}:latest" } "push ${img}:latest"
+}
+$ErrorActionPreference = "Stop"
 
 Write-Host "==> 3/3 Waiting for the site to answer (instances pull the images and register with the ALBs) ..."
 $ok = $false
