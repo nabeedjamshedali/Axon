@@ -74,6 +74,19 @@ jobs:
       - name: Roll out to Auto Scaling groups (rolling instance refresh)
         run: |
           for asg in "$APP_ASG" "$WEB_ASG"; do
+            # A refresh left running by an earlier (cancelled) deploy would block this one and roll out an
+            # older :latest, so cancel it and let the newest commit win.
+            STATUS=$(aws autoscaling describe-instance-refreshes --auto-scaling-group-name "$asg" \
+              --query 'InstanceRefreshes[0].Status' --output text)
+            if [ "$STATUS" = "Pending" ] || [ "$STATUS" = "InProgress" ]; then
+              echo "$asg: cancelling refresh left over from an earlier deploy"
+              aws autoscaling cancel-instance-refresh --auto-scaling-group-name "$asg"
+            fi
+            for i in $(seq 1 40); do
+              STATUS=$(aws autoscaling describe-instance-refreshes --auto-scaling-group-name "$asg" \
+                --query 'InstanceRefreshes[0].Status' --output text)
+              case "$STATUS" in Pending|InProgress|Cancelling) sleep 15 ;; *) break ;; esac
+            done
             aws autoscaling start-instance-refresh \
               --auto-scaling-group-name "$asg" \
               --preferences '{"MinHealthyPercentage":50,"InstanceWarmup":120}'
