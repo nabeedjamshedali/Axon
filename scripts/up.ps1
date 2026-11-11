@@ -7,7 +7,9 @@ $env:AWS_REGION = "ap-south-1"
 $root = Split-Path $PSScriptRoot -Parent
 
 # Fail before creating anything billable if Docker is not running (otherwise the stack comes up with empty ECR repos).
+$ErrorActionPreference = "Continue" # docker's stderr would otherwise abort with a NativeCommandError
 docker info *> $null
+$ErrorActionPreference = "Stop"
 if ($LASTEXITCODE -ne 0) { throw "Docker Desktop is not running. Start it, wait until it is ready, then run this script again." }
 
 Write-Host "==> 1/3 Terraform: creating VPC, ALBs, ASGs, RDS, ECR, S3, IAM, CloudWatch ..."
