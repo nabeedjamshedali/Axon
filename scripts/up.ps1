@@ -31,7 +31,8 @@ function Invoke-Checked([scriptblock]$cmd, [string]$what) {
     & $cmd
     if ($LASTEXITCODE -ne 0) { throw "$what failed (exit code $LASTEXITCODE)" }
 }
-Invoke-Checked { aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $registry } "ECR login"
+# Pipe through cmd: a Windows PowerShell 5.1 pipe re-encodes the password and adds CRLF, so ECR answers 400 Bad Request.
+Invoke-Checked { cmd /c "aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $registry" } "ECR login"
 Invoke-Checked { docker build -f "$root\web\Dockerfile" -t "${web}:$sha" -t "${web}:latest" $root } "web image build"
 Invoke-Checked { docker build --build-arg GIT_SHA=$sha -t "${api}:$sha" -t "${api}:latest" "$root\api" } "api image build"
 foreach ($img in @($web, $api)) {
