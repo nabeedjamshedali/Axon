@@ -1,5 +1,3 @@
-# Local multi-service orchestration: web (nginx) -> api (node) -> db (postgres)
-# Usage: docker compose up --build   then open http://localhost:8080
 services:
   web:
     build:

@@ -10,11 +10,10 @@ on:
 env:
   AWS_REGION: ap-south-1
   ECR_REGISTRY: 526295688414.dkr.ecr.ap-south-1.amazonaws.com
-  # Role ARN is not a secret. Authentication uses GitHub OIDC (short-lived tokens): no AWS keys are stored in GitHub.
   AWS_ROLE_ARN: ${{ vars.AWS_ROLE_ARN || 'arn:aws:iam::526295688414:role/axon-github-deploy' }}
   WEB_ASG: axon-web-asg
   APP_ASG: axon-app-asg
-  PUBLIC_ALB: axon-public-alb # the ALB DNS name changes whenever the stack is recreated, so it is looked up at deploy time
+  PUBLIC_ALB: axon-public-alb 
 
 jobs:
   test:
